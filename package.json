@@ -1,0 +1,30 @@
+{
+  "name": "robinherbots.gihub.io",
+  "version": "1.0.0",
+  "description": "Main githup pages",
+  "author": "Robin Herbots",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "bootstrap-vue": "^2.0.0",
+    "nuxt": "^2.0.0",
+    "vue-markdown-v2": "^0.1.7",
+    "vue-showdown": "^2.4.1"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^2.0.0",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "node-sass": "4.14.1",
+    "sass-loader": "^8.0.2"
+  }
+}
