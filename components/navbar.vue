@@ -4,11 +4,11 @@
       <!-- <b-button id="sidebarToggle" v-b-toggle.sidebar :variant="variant" :title="title">
         <span class="navbar-toggler-icon" />
       </b-button>-->
+      <b-navbar-toggle target="nav-collapse" />
       <b-navbar-brand href="/">
         <Logo width="70px" height="70px" />
-        {{ brand }}
       </b-navbar-brand>
-      <!-- <b-navbar-toggle /> -->
+      <b-nav-text>{{ brand }}</b-nav-text>
     </b-navbar>
   </div>
 </template>
@@ -17,6 +17,9 @@
 import Logo from "~/components/Logo.vue";
 
 export default {
+  components: {
+    Logo
+  },
   data: () => {
     return {
       brand: "sMarter entertainment",
@@ -24,9 +27,6 @@ export default {
       variant: "info",
       title: "Show menu"
     };
-  },
-  components: {
-    Logo
   }
 };
 </script>
@@ -34,5 +34,8 @@ export default {
 <style lang="scss" scoped>
 #sidebarToggle {
   margin-right: 5px;
+}
+.navbar-text {
+  color: white;
 }
 </style>

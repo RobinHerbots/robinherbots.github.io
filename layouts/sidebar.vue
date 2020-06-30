@@ -3,10 +3,12 @@
     <navbar />
     <b-container fluid>
       <b-row>
-        <b-col class="overflow-auto sidebar">
-          <sidebar />
+        <b-col cols="0" class="overflow-auto sidebar">
+          <b-collapse id="nav-collapse" visible is-nav>
+            <sidebar />
+          </b-collapse>
         </b-col>
-        <b-col cols="10" class="overflow-auto">
+        <b-col class="overflow-auto">
           <div id="scrollspy-nested" class="my-2">
             <nuxt />
           </div>
