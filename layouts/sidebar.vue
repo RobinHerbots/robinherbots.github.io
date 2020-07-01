@@ -4,7 +4,7 @@
     <b-container fluid>
       <b-row>
         <b-col cols="0" class="overflow-auto sidebar">
-          <b-collapse id="nav-collapse" visible is-nav>
+          <b-collapse id="nav-collapse" class="d-lg-block" is-nav invisible>
             <sidebar />
           </b-collapse>
         </b-col>
