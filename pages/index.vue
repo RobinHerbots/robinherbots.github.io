@@ -15,7 +15,6 @@
         <a :href="github" target="_blank" class="button--grey">GitHub</a>
       </div>
     </div>
-    <VueShowdown :markdown="md" />
   </div>
 </template>
 
@@ -30,19 +29,8 @@ export default {
     return {
       title: "sMarter entertainment",
       subtitle: "robinherbots.github.io",
-      github: "https://github.com/RobinHerbots",
-      md: ""
+      github: "https://github.com/RobinHerbots"
     };
-  },
-  mounted () {
-    fetch("https://rawgit.com/RobinHerbots/Inputmask/5.x/README.md", {
-      method: "get"
-    })
-      .then((response) => {
-        return response.text();
-      }).then((txtResponse) => {
-        this.md = txtResponse;
-      });
   }
 };
 </script>
@@ -52,13 +40,11 @@ export default {
 
 .container {
   margin: 0 auto;
-  height: 100vh;
-  // display: flex;
+  min-height: 100vh;
+  display: flex;
   justify-content: center;
-  // align-items: center;
-  // text-align: center;
-
-  overflow : auto;
+  align-items: center;
+  text-align: center;
 }
 
 .title {
