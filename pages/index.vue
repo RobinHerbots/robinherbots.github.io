@@ -9,7 +9,7 @@
         {{ subtitle }}
       </h2>
       <div class="links">
-        <nuxt-link to="/repository" class="button--green">
+        <nuxt-link to="/Inputmask" class="button--green">
           Enter
         </nuxt-link>
         <a :href="github" target="_blank" class="button--grey">GitHub</a>
