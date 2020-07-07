@@ -2,7 +2,7 @@
   <nav>
     <b-navbar v-b-scrollspy:scrollspy-nested class="flex-column" type="light" variant="faded">
       <b-nav v-for="nav in blendedNavigation" :key="nav.title" pills vertical class="w-100 bg-light mb-1">
-        <b-nav-item :to="nav.path" class="w-100">
+        <b-nav-item :to="nav.path" class="w-100" :class="{active: isActive(nav.title)}">
           {{ nav.title }}
         </b-nav-item>
         <b-nav v-for="sub in nav.subs" :key="sub.title" class="w-100">
@@ -43,7 +43,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["fetchRepos"])
+    ...mapActions(["fetchRepos"]),
+    isActive (title) {
+      return `/${title.toLowerCase()}` === this.$route.path.toLowerCase();
+    }
   },
   mounted () {
     this.fetchRepos();
@@ -58,7 +61,7 @@ export default {
 }
 .nav-item {
   & a { color: black;}
-  &:hover  {
+  &:hover, &.active  {
    background-color: lighten( #17a2b8, 30);
 }
 }
