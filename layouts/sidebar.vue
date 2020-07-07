@@ -58,10 +58,6 @@ html {
 </style>
 <style lang="scss" scoped>
 .row > div {
-  &.sidebar {
-    border-right-style: inset;
-    border-right-width: thin;
-  }
   height: 90vh;
 }
 </style>

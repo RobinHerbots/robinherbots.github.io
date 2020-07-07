@@ -1,40 +1,65 @@
 <template>
   <nav>
-    <b-navbar v-b-scrollspy:scrollspy-nested class="flex-column">
-      <b-list-group v-for="nav in navigation" :key="nav.title">
-        <b-navbar-brand :to="nav.path">
+    <b-navbar v-b-scrollspy:scrollspy-nested class="flex-column" type="light" variant="faded">
+      <b-nav v-for="nav in blendedNavigation" :key="nav.title" pills vertical class="w-100 bg-light mb-1">
+        <b-nav-item :to="nav.path" class="w-100">
           {{ nav.title }}
-        </b-navbar-brand>
-        <b-nav v-for="sub in nav.subs" :key="sub.title" pills vertical>
-          <b-nav-item :to="sub.path">
+        </b-nav-item>
+        <b-nav v-for="sub in nav.subs" :key="sub.title" class="w-100">
+          <b-nav-item :to="sub.path" class="w-100 pl-3 rounded">
             {{ sub.title }}
           </b-nav-item>
         </b-nav>
-      </b-list-group>
+      </b-nav>
     </b-navbar>
   </nav>
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapActions } = createNamespacedHelpers("repos");
+
 export default {
   data: () => {
     return {
       navigation: [{
         title: "Inputmask",
-        path: "/inputmask",
         subs: [{ title: "Demo", path: "/inputmask/demo" }]
       }]
     };
+  },
+  computed: {
+    ...mapGetters(["personalRepos"]),
+    blendedNavigation () {
+      return this.personalRepos.map((v, i) => {
+        const title = v.name.replace(/\b[a-z]/g, x => x.toUpperCase());
+        const blend = this.navigation.filter(n => n.title === title)[0];
+        return {
+          title,
+          path: ((blend && blend.path) || `/${v.name}`),
+          subs: (blend && blend.subs) || []
+        };
+      });
+    }
+  },
+  methods: {
+    ...mapActions(["fetchRepos"])
+  },
+  mounted () {
+    this.fetchRepos();
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .navbar-brand {
+  color: inherit;
   font-weight: bold;
 }
 .nav-item {
-  a {
-  color: black;
-}}
+  & a { color: black;}
+  &:hover  {
+   background-color: lighten( #17a2b8, 30);
+}
+}
 </style>

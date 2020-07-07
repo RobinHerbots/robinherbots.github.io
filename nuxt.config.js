@@ -1,7 +1,15 @@
+import path from "path";
+import fs from "fs";
 
 export default {
   mode: "universal",
   target: "static",
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, "../localhost.key")),
+      cert: fs.readFileSync(path.resolve(__dirname, "../localhost.crt"))
+    }
+  },
   /*
   ** Headers of the page
   */
