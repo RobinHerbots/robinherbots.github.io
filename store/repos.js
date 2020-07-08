@@ -41,6 +41,6 @@ export const actions = {
 
 export const getters = {
   personalRepos: (state) => {
-    return state.repos.filter(repo => !repo.fork);
+    return state.repos.filter(repo => !repo.fork && repo.name !== "robinherbots.github.io");
   }
 };

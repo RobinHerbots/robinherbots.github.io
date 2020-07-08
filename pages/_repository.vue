@@ -17,8 +17,8 @@ export default {
   },
   computed: { ...mapGetters(["personalRepos"]) },
   mounted () {
-    let readmeUrl = "https://rawgit.com/RobinHerbots/Inputmask/5.x/README.md";
-    const targetRepository = this.personalRepos.filter(pr => pr.name.toLowerCase() == this.$route.params.repository.toLowerCase())[0];
+    let readmeUrl = "https://cdn.jsdelivr.net/gh/RobinHerbots/Inputmask@5.x/README.md";
+    const targetRepository = this.personalRepos.filter(pr => pr.name.toLowerCase() === this.$route.params.repository.toLowerCase())[0];
     if (targetRepository) { readmeUrl = `${targetRepository.html_url}@${targetRepository.default_branch}/README.md`.replace("https://github.com", "https://cdn.jsdelivr.net/gh"); }
 
     fetch(readmeUrl, {

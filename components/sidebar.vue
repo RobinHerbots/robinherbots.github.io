@@ -1,12 +1,12 @@
 <template>
   <nav>
     <b-navbar v-b-scrollspy:scrollspy-nested class="flex-column" type="light" variant="faded">
-      <b-nav v-for="nav in blendedNavigation" :key="nav.title" pills vertical class="w-100 bg-light mb-1">
-        <b-nav-item :to="nav.path" class="w-100" :class="{active: isActive(nav.title)}">
+      <b-nav v-for="nav in blendedNavigation" :key="nav.path" pills vertical class="w-100 bg-light mb-1">
+        <b-nav-item :to="nav.path" class="w-100 rounded" :class="{active: isActive(nav.path)}">
           {{ nav.title }}
         </b-nav-item>
-        <b-nav v-for="sub in nav.subs" :key="sub.title" class="w-100">
-          <b-nav-item :to="sub.path" class="w-100 pl-3 rounded">
+        <b-nav v-for="sub in nav.subs" :key="sub.path" class="w-100">
+          <b-nav-item :to="sub.path" class="w-100 pl-3 rounded" :class="{active: isActive(sub.path)}">
             {{ sub.title }}
           </b-nav-item>
         </b-nav>
@@ -24,7 +24,11 @@ export default {
     return {
       navigation: [{
         title: "Inputmask",
-        subs: [{ title: "Demo", path: "/inputmask/demo" }]
+        subs: [
+          { title: "Date alias", path: "/inputmask/date" },
+          { title: "Numeric alias", path: "/inputmask/numeric" },
+          { title: "Extra extensions", path: "/inputmask/other" },
+          { title: "Demo", path: "/inputmask/demo" }]
       }]
     };
   },
@@ -44,8 +48,8 @@ export default {
   },
   methods: {
     ...mapActions(["fetchRepos"]),
-    isActive (title) {
-      return `/${title.toLowerCase()}` === this.$route.path.toLowerCase();
+    isActive (path) {
+      return `${path.toLowerCase()}` === this.$route.path.toLowerCase();
     }
   },
   mounted () {
