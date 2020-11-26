@@ -9,7 +9,7 @@
         {{ subtitle }}
       </h2>
       <div class="links">
-        <nuxt-link to="/|inputmask" class="button--green">
+        <nuxt-link to="/inputmask" class="button--green">
           Enter
         </nuxt-link>
         <a :href="github" target="_blank" class="button--grey">GitHub</a>
@@ -31,6 +31,12 @@ export default {
       subtitle: "robinherbots.github.io",
       github: "https://github.com/RobinHerbots"
     };
+  },
+  mounted () {
+    const forwardRepo = this.$route.query.repo;
+    if (forwardRepo) {
+      this.$router.push(forwardRepo);
+    }
   }
 };
 </script>
