@@ -25,10 +25,10 @@ export default {
       navigation: [{
         title: "Inputmask",
         subs: [
-          { title: "Date alias", path: "/inputmask/date" },
-          { title: "Numeric alias", path: "/inputmask/numeric" },
-          { title: "Extra extensions", path: "/inputmask/other" },
-          { title: "Demo", path: "/inputmask/demo" }]
+          { title: "Date alias", path: "/|inputmask/date" },
+          { title: "Numeric alias", path: "/|inputmask/numeric" },
+          { title: "Extra extensions", path: "/|inputmask/other" },
+          { title: "Demo", path: "/|inputmask/demo" }]
       }]
     };
   },
@@ -40,7 +40,7 @@ export default {
         const blend = this.navigation.filter(n => n.title === title)[0];
         return {
           title,
-          path: ((blend && blend.path) || `/${v.name}`),
+          path: ((blend && blend.path) || `/|${v.name}`),
           subs: (blend && blend.subs) || []
         };
       });
