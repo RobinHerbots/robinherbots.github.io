@@ -59,5 +59,6 @@ html {
 <style lang="scss" scoped>
 .row > div {
   height: 90vh;
+  padding-bottom: 20px;
 }
 </style>

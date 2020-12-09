@@ -5,24 +5,25 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapMutations, mapState, mapActions } = createNamespacedHelpers("repos");
+
 export default {
   layout: "sidebar",
   data: () => {
     return {
-      md: ""
     };
   },
+  computed: {
+    ...mapState(["md"])
+  },
   mounted () {
-    const readmeUrl = "https://cdn.jsdelivr.net/gh/RobinHerbots/Inputmask@5.x/README_other.md";
-
-    fetch(readmeUrl, {
-      method: "get"
-    })
-      .then((response) => {
-        return response.text();
-      }).then((txtResponse) => {
-        this.md = txtResponse;
-      });
+    this.setReadmeUrl("https://cdn.jsdelivr.net/gh/RobinHerbots/Inputmask@5.x/README_other.md");
+    this.fetchMarkDown();
+  },
+  methods: {
+    ...mapMutations(["setReadmeUrl"]),
+    ...mapActions(["fetchMarkDown"])
   }
 };
 </script>

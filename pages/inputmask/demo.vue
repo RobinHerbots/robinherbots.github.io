@@ -5,12 +5,16 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("repos");
 export default {
   layout: "sidebar",
   data: () => {
     return {
-      md: ""
     };
+  },
+  computed: {
+    ...mapState(["md"])
   }
 };
 </script>
