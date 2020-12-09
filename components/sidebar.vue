@@ -46,14 +46,14 @@ export default {
       });
     }
   },
+  mounted () {
+    this.fetchRepos();
+  },
   methods: {
     ...mapActions(["fetchRepos"]),
     isActive (path) {
       return `${path.toLowerCase()}` === this.$route.path.toLowerCase();
     }
-  },
-  mounted () {
-    this.fetchRepos();
   }
 };
 </script>

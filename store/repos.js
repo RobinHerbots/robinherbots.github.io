@@ -1,7 +1,8 @@
 export const state = () => ({
   repos: [],
   md: "",
-  readmeUrl: ""
+  readmeUrl: "",
+  isFetching: false
 });
 
 export const mutations = {
@@ -17,6 +18,9 @@ export const mutations = {
   },
   setReadmeUrl (state, readmeUrl) {
     state.readmeUrl = readmeUrl;
+  },
+  setIsFetching (state, fetching) {
+    state.isFetching = fetching;
   }
 };
 
@@ -41,18 +45,22 @@ export const actions = {
         });
     }
 
-    if (state.repos.length === 0) {
+    if (!state.isFetching) {
       commit("setRepos", []);
-      await fetchPage(1);
+      commit("setIsFetching", fetchPage(1));
+      await state.isFetching;
     }
+
+    return state.isFetching;
   },
-  async fetchRepoReadme ({ commit, dispatch }) {
-    await dispatch("fetchRepos");
-    const targetRepository = this.getters["repos/personalRepos"].filter(pr => `${pr.name.toLowerCase()}` === this.$router.currentRoute.params.repository.toLowerCase())[0];
-    if (targetRepository) {
-      commit("setReadmeUrl", `${targetRepository.html_url}@${targetRepository.default_branch}/README.md`.replace("https://github.com", "https://cdn.jsdelivr.net/gh"));
-      return dispatch("fetchMarkDown");
-    }
+  fetchRepoReadme ({ commit, getters, dispatch }) {
+    dispatch("fetchRepos").then(function () {
+      const targetRepository = getters.personalRepos.filter(pr => `${pr.name.toLowerCase()}` === this.$router.currentRoute.params.repository.toLowerCase())[0];
+      if (targetRepository) {
+        commit("setReadmeUrl", `${targetRepository.html_url}@${targetRepository.default_branch}/README.md`.replace("https://github.com", "https://cdn.jsdelivr.net/gh"));
+        return dispatch("fetchMarkDown");
+      }
+    }.bind(this));
   },
   fetchMarkDown ({ commit, state }) {
     fetch(state.readmeUrl, {
@@ -68,6 +76,6 @@ export const actions = {
 
 export const getters = {
   personalRepos: (state) => {
-    return state.repos.filter(repo => !repo.fork && repo.name !== "robinherbots.github.io");
+    return (state.repos.filter(repo => !repo.fork && repo.name !== "robinherbots.github.io")).sort((a, b) => a.name.localeCompare(b.name));
   }
 };
