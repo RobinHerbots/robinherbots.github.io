@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/inputmask/other", {data:[{}],fetch:[],mutations:[]});

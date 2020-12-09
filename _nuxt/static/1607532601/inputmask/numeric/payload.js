@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/inputmask/numeric", {data:[{}],fetch:[],mutations:[]});
