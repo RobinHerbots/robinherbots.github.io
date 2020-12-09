@@ -21,18 +21,18 @@ export const mutations = {
 };
 
 export const actions = {
-  fetchRepos ({ commit, state }) {
-    function fetchPage (page) {
-      fetch(
+  async fetchRepos ({ commit, state }) {
+    async function fetchPage (page) {
+      await fetch(
           `https://api.github.com/users/robinherbots/repos?page=${page}`,
           {
             method: "get"
           }
       )
-        .then((response) => {
+        .then(async (response) => {
           const nextPage = response.headers.get("link");
           if (response.status === 200 && nextPage.includes("rel=\"next\"")) {
-            fetchPage(page + 1);
+            await fetchPage(page + 1);
           }
           return response.json();
         })
@@ -43,10 +43,11 @@ export const actions = {
 
     if (state.repos.length === 0) {
       commit("setRepos", []);
-      fetchPage(1);
+      await fetchPage(1);
     }
   },
-  fetchRepoReadme ({ commit, dispatch }) {
+  async fetchRepoReadme ({ commit, dispatch }) {
+    await dispatch("fetchRepos");
     const targetRepository = this.getters["repos/personalRepos"].filter(pr => `${pr.name.toLowerCase()}` === this.$router.currentRoute.params.repository.toLowerCase())[0];
     if (targetRepository) {
       commit("setReadmeUrl", `${targetRepository.html_url}@${targetRepository.default_branch}/README.md`.replace("https://github.com", "https://cdn.jsdelivr.net/gh"));
