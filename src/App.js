@@ -1,21 +1,34 @@
-import "./App.css";
 import { useContext } from "react";
-import { Routes, BrowserRouter } from "react-router-dom";
+import { Routes } from "react-router-dom";
 
+import styles from "./App.module.scss";
+import { Footer } from "./Components/Footer/Footer";
+import { Header } from "./Components/Header/Header";
+import { Navigation } from "./Components/Navigation/Navigation";
+import { useViewPort } from "./Components/ViewPort/ViewPort";
 import { RoutingContext } from "./RoutingProvider";
+import constants from "./Shared/constants.module.scss";
 
 function App() {
-  const { routes } = useContext(RoutingContext);
+  const { routes, asideRoutes } = useContext(RoutingContext),
+    { width } = useViewPort();
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <header className="App-header">
-          <p>Please wait!</p>
+    <div id="app" data-testid="app-container">
+      <Header />
+      <div className={styles.content}>
+        <Navigation />
+        <article className={`${styles.article} ${styles.scrollable}`}>
           <Routes>{routes}</Routes>
-        </header>
+        </article>
+        {width > constants.AsideThreshold && (
+          <aside className={`${styles.asideright} ${styles.scrollable}`}>
+            <Routes>{asideRoutes}</Routes>
+          </aside>
+        )}
       </div>
-    </BrowserRouter>
+      <Footer />
+    </div>
   );
 }
 
