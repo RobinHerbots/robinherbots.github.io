@@ -17,7 +17,7 @@ function App() {
     <div id="app" data-testid="app-container">
       <Header />
       <div className={styles.content}>
-        <Navigation />
+        <Navigation className={styles.scrollable} />
         <article className={`${styles.article} ${styles.scrollable}`}>
           <Routes>{routes}</Routes>
         </article>
