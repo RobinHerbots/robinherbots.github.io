@@ -11,11 +11,17 @@ export default function useFetch(url, options) {
         const json = await response.json();
         setData((d) => d.concat(json));
         const linkHaader = response.headers.get("link"),
-          [page1] = linkHaader?.split(","),
-          [page, rel] = page1.split(";");
-        if (response.status === 200 && rel.includes("next")) {
-          const url = page.match(/[^<].*[^>]/);
-          await fetchPage(url, options);
+          [page1, page2] = linkHaader?.split(","),
+          [page1Url, rel1] = page1.split(";"),
+          [page2Url, rel2] = page2.split(";");
+        if (response.status === 200) {
+          if (rel1.includes("next")) {
+            const url = page1Url.match(/[^<].*[^>]/);
+            await fetchPage(url, options);
+          } else if (rel2.includes("next")) {
+            const url = page2Url.match(/[^ <].*[^>]/);
+            await fetchPage(url, options);
+          }
         }
       }
     }, []);
